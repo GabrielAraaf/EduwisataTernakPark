@@ -2,108 +2,40 @@
 
 namespace App\Http\Controllers;
 
+// Import Model yang akan digunakan
+use App\Models\Aktivitas;
+use App\Models\Wahana;
+// Asumsi Anda memiliki Model Galeri, jika tidak, kita bisa buat nanti
+// use App\Models\Galeri; 
+
 use Illuminate\Http\Request;
 
+// Nama class Anda adalah EduwisataController, kita sesuaikan
 class EduwisataController extends Controller
 {
-    
+    /**
+     * Menampilkan halaman utama dengan data dari database.
+     */
     public function index()
     {
-      
-        $daftar_aktivitas = [
-            [
-                'slug' => 'memberi-makan-ternak',
-                'nama' => 'Memberi Makan Ternak',
-                'deskripsi' => 'Rasakan pengalaman memberi makan berbagai jenis domba secara langsung.',
-                'gambar' => 'images/gdomba.jpg',
-                'url' => '#'
-            ],
-            [
-                'slug' => 'memerah-susu-domba',
-                'nama' => 'Memerah Susu Domba',
-                'deskripsi' => 'Belajar cara memerah susu domba dengan teknik yang benar bersama pemandu kami.',
-                'gambar' => 'images/memerahsusu.jpeg',
-                'url' => '#'
-            ],
-            [
-                'slug' => 'worksop-olah-daging-susu',
-                'nama' => 'Workshop Olahan Daging dan Susu',
-                'deskripsi' => 'Pahami proses pengolahan daging hewan ternak menjadi sebuah makanan yang nikmat.',
-                'gambar' => 'images/olahdaging.jpg',
-                'url' => '#'
-            ],
-            [
-                'slug' => 'foto-bersama-hewan-ternak',
-                'nama' => 'Foto bersama Hewan Ternak',
-                'deskripsi' => 'Nikmati pemandangan asri Ternak Park dengan berfoto bersama hewan ternak.',
-                'gambar' => 'images/fotbar.jpeg',
-                'url' => '#'
-            ],
-            [
-                'slug' => 'parade-domba',
-                'nama' => 'Parade Domba',
-                'deskripsi' => 'Parade dan kontes domba hias sebagai atraksi dan hiburan wisatawan.',
-                'gambar' => 'images/dombahias.jpg',
-                'url' => '#'
-            ],
-        ];
+        // Ambil semua data dari tabel 'aktivitas' melalui Model Aktivitas
+        $daftar_aktivitas = Aktivitas::all();
 
-        $daftar_wahana = [
-            [
-                'slug' => 'atv-adventure',
-                'nama' => 'ATV Adventure',
-                'deskripsi' => 'Tantang adrenalin Anda dengan menjelajahi trek off-road kami menggunakan ATV.',
-                'gambar' => 'images/atv.jpeg',
-                'url' => '#'
-            ],
-            [
-                'slug' => 'playground-anak',
-                'nama' => 'Playground Anak',
-                'deskripsi' => 'Wahana Playground khusus anak yang seru dan menarik.',
-                'gambar' => 'images/playground.jpeg',
-                'url' => '#'
-            ],
-            [
-                'slug' => 'taman-kelinci',
-                'nama' => 'Taman Kelinci',
-                'deskripsi' => 'Area bermain khusus di mana anak-anak bisa berinteraksi dengan puluhan kelinci lucu.',
-                'gambar' => 'images/kelinci.jpg',
-                'url' => '#'
-            ],
-            [
-                'slug' => 'glamping-area',
-                'nama' => 'Glamping Area',
-                'deskripsi' => 'Area berkemah dengan fasilitas mewah dan kenyamanan yang lebih tinggi daripada berkemah tradisional.',
-                'gambar' => 'images/glamping.jpeg',
-                'url' => '#'
-            ],
-            [
-                'slug' => 'outbound-area',
-                'nama' => 'Outbound Area',
-                'deskripsi' => 'kegiatan yang dilakukan di luar ruangan, baik di alam terbuka maupun tertutup, dengan tujuan pengembangan diri dan pembelajaran melalui permainan, simulasi, diskusi, dan petualangan.',
-                'gambar' => 'images/outbound.jpg',
-                'url' => '#'
-            ],
-        ];
+        // Ambil semua data dari tabel 'wahanas' melalui Model Wahana
+        $daftar_wahana = Wahana::all();
 
+        // Untuk galeri, kita ambil beberapa foto secara acak.
+        // Ini masih menggunakan array dummy, bisa diganti dengan Model Galeri nanti.
         $daftar_foto_galeri = [
-            ['url' => 'images/kandang.jpg'],
-            ['url' => 'images/berimakan.jpg'],
-            ['url' => 'images/budidaya.jpeg'],
-            ['url' => 'https://placehold.co/600x400/FF9800/FFFFFF?text=Foto+4'],
-            ['url' => 'https://placehold.co/600x400/795548/FFFFFF?text=Foto+5'],
-            ['url' => 'https://placehold.co/600x400/00BCD4/FFFFFF?text=Foto+6'],
-            ['url' => 'https://placehold.co/600x400/FF9800/FFFFFF?text=Foto+7'],
-            ['url' => 'https://placehold.co/600x400/795548/FFFFFF?text=Foto+8'],
-            ['url' => 'https://placehold.co/600x400/00BCD4/FFFFFF?text=Foto+9'],
-            ['url' => 'https://placehold.co/600x400/FF9800/FFFFFF?text=Foto+10'],
-            ['url' => 'https://placehold.co/600x400/795548/FFFFFF?text=Foto+11'],
-            ['url' => 'https://placehold.co/600x400/00BCD4/FFFFFF?text=Foto+12'],
-            ['url' => 'https://placehold.co/600x400/FF9800/FFFFFF?text=Foto+13'],
-            ['url' => 'https://placehold.co/600x400/795548/FFFFFF?text=Foto+14'],
-            ['url' => 'https://placehold.co/600x400/00BCD4/FFFFFF?text=Foto+15'],
+            ['url' => asset('images/kandang.jpg'), 'alt' => 'Suasana Kandang Ternak Park'],
+            ['url' => asset('images/berimakan.jpg'), 'alt' => 'Memberi Makan Ternak'],
+            ['url' => asset('images/budidaya.jpeg'), 'alt' => 'Budidaya Tanaman'],
+            ['url' => asset('images/atv.jpeg'), 'alt' => 'Wahana ATV'],
+            ['url' => asset('images/playground.jpeg'), 'alt' => 'Playground Anak'],
+            ['url' => asset('images/kelinci.jpg'), 'alt' => 'Taman Kelinci'],
         ];
 
+        // Kirim data yang sudah diambil dari database ke view
         return view('welcome', [
             'daftar_aktivitas' => $daftar_aktivitas,
             'daftar_wahana' => $daftar_wahana,
@@ -111,8 +43,11 @@ class EduwisataController extends Controller
         ]);
     }
 
+    /**
+     * Menampilkan halaman "About Us".
+     */
     public function about()
     {
         return view('about');
     }
-};
+}

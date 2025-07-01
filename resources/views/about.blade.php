@@ -13,30 +13,30 @@
         <div class="content-section">
             <h2>Visi & Misi</h2>
             <p>
-                Menjadi pusat eduwisata peternakan terintegrasi yang terdepan di Jawa Timur, 
-                yang mengedukasi masyarakat tentang pentingnya ketahanan pangan, kesejahteraan hewan, 
-                dan agrikultur berkelanjutan sambil memberdayakan komunitas lokal Wonosalam.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam.
             </p>
         </div>
 
         <div class="content-section">
             <h2>Sejarah Singkat</h2>
             <p>
-                Ternak Park Wonosalam lahir dari sebuah ide sederhana startup yang ingin menjembatani 
-                kesenjangan antara masyarakat urban dengan dunia peternakan. Kami percaya bahwa dengan 
-                mengenal sumber pangan mereka, masyarakat akan lebih menghargai proses dan alam. 
-                Didirikan pada tahun 2022, kami terus berinovasi untuk memberikan pengalaman belajar 
-                yang menyenangkan bagi semua kalangan.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam.
             </p>
         </div>
 
         <div class="content-section">
             <h2>Keunikan Wonosalam</h2>
             <p>
-                Lokasi kami di Wonosalam bukan tanpa alasan. Dikenal sebagai surga durian dan kopi, 
-                Wonosalam menawarkan udara yang sejuk dan pemandangan alam yang asri. Kami ingin 
-                Ternak Park menjadi bagian tak terpisahkan dari ekosistem agrowisata yang sudah ada, 
-                memberikan pilihan destinasi lengkap bagi para pengunjung.
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam.
             </p>
         </div>
     </div>

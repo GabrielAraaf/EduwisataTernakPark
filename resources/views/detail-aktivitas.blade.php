@@ -12,7 +12,7 @@
 
     <div class="detail-layout">
         <div class="detail-image">
-            <img src="{{ $aktivitas['gambar_utama'] }}" alt="{{ $aktivitas['nama'] }}" 
+           <img src="{{ asset($aktivitas->gambar) }}" alt="{{ $aktivitas->nama }}" 
                  onerror="this.onerror=null;this.src='https://placehold.co/800x600/CCCCCC/FFFFFF?text=Gambar+Tidak+Tersedia';">
         </div>
 
@@ -41,7 +41,7 @@
     <div class="related-grid">
         @foreach($aktivitas_lainnya as $item)
             <div class="card">
-                <div class="card-image"><img src="{{ $item['gambar_utama'] }}" alt="{{ $item['nama'] }}"
+                <div class="card-image"><img src="{{ asset($item->gambar) }}" alt="{{ $item->nama }}"
                      onerror="this.onerror=null;this.src='https://placehold.co/400x300/CCCCCC/FFFFFF?text=Gambar';"></div>
                 <div class="card-content">
                     <h3>{{ $item['nama'] }}</h3>

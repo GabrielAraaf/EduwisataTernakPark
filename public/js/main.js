@@ -88,46 +88,133 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // Kalkulasi Interaktif di Halaman Pembayaran
-    const paymentPage = document.getElementById('payment-page');
-    if (paymentPage) {
-        const basePrice = parseFloat(paymentPage.dataset.price);
-        const jumlahTiketInput = document.getElementById('jumlah_tiket');
-        const btnMinus = document.getElementById('btn-minus');
-        const btnPlus = document.getElementById('btn-plus');
-        const totalPembayaranEl = document.getElementById('total_pembayaran');
-        const tanggalKunjunganInput = document.getElementById('tanggal_kunjungan');
+const paymentPage = document.getElementById('payment-page');
+if (paymentPage) {
+    // Ambil kedua harga dari data attributes
+    const weekdayPrice = parseFloat(paymentPage.dataset.priceWeekday);
+    const weekendPrice = parseFloat(paymentPage.dataset.priceWeekend);
+    
+    // Variabel untuk menyimpan harga yang berlaku saat ini
+    let currentPrice = weekdayPrice;
 
-        if(tanggalKunjunganInput) {
-            const today = new Date().toISOString().split('T')[0];
-            tanggalKunjunganInput.setAttribute('min', today);
-        }
+    // Ambil semua elemen yang dibutuhkan
+    const jumlahTiketInput = document.getElementById('jumlah_tiket');
+    const btnMinus = document.getElementById('btn-minus');
+    const btnPlus = document.getElementById('btn-plus');
+    const totalPembayaranEl = document.getElementById('total_pembayaran');
+    const hargaPerTiketDisplay = document.getElementById('harga_per_tiket_display');
+    const tanggalKunjunganInput = document.getElementById('tanggal_kunjungan');
 
+    // --- PERBAIKAN: Hanya jalankan kode jika semua elemen ditemukan ---
+    if (jumlahTiketInput && btnMinus && btnPlus && totalPembayaranEl && hargaPerTiketDisplay && tanggalKunjunganInput) {
+
+        // Atur tanggal minimal hari ini
+        const today = new Date().toISOString().split('T')[0];
+        tanggalKunjunganInput.setAttribute('min', today);
+
+        // Fungsi untuk mengupdate total harga
         const updateTotal = () => {
-            const quantity = parseInt(jumlahTiketInput.value);
-            const total = basePrice * quantity;
+            const quantity = parseInt(jumlahTiketInput.value) || 0;
+            const total = currentPrice * quantity;
             totalPembayaranEl.textContent = 'Rp ' + total.toLocaleString('id-ID');
         };
 
-        if(btnMinus) {
-            btnMinus.addEventListener('click', () => {
-                if (jumlahTiketInput.value > 1) {
-                    jumlahTiketInput.value--;
-                    updateTotal();
-                }
-            });
-        }
-        
-        if(btnPlus) {
-            btnPlus.addEventListener('click', () => {
-                jumlahTiketInput.value++;
+        // Fungsi untuk mengubah harga berdasarkan tanggal yang dipilih
+        const updatePriceBasedOnDate = () => {
+            const selectedDateValue = tanggalKunjunganInput.value;
+            if (!selectedDateValue) {
+                // Jika tanggal kosong, gunakan harga weekday sebagai default
+                currentPrice = weekdayPrice;
+                hargaPerTiketDisplay.textContent = 'Rp ' + weekdayPrice.toLocaleString('id-ID');
                 updateTotal();
-            });
-        }
+                return;
+            }
 
-        if(jumlahTiketInput) {
-            jumlahTiketInput.addEventListener('change', updateTotal);
-        }
+            const selectedDate = new Date(selectedDateValue);
+            const day = selectedDate.getDay(); // 0 = Minggu, 6 = Sabtu
+
+            if (day === 0 || day === 6) {
+                // Jika hari Minggu atau Sabtu, gunakan harga weekend
+                currentPrice = weekendPrice;
+                hargaPerTiketDisplay.textContent = 'Rp ' + weekendPrice.toLocaleString('id-ID');
+            } else {
+                // Selain itu, gunakan harga weekday
+                currentPrice = weekdayPrice;
+                hargaPerTiketDisplay.textContent = 'Rp ' + weekdayPrice.toLocaleString('id-ID');
+            }
+            // Hitung ulang total setelah harga berubah
+            updateTotal();
+        };
+
+        // Tambahkan event listener untuk setiap interaksi
+        tanggalKunjunganInput.addEventListener('change', updatePriceBasedOnDate);
+        btnMinus.addEventListener('click', () => {
+            if (jumlahTiketInput.value > 1) {
+                jumlahTiketInput.value--;
+                updateTotal();
+            }
+        });
+        btnPlus.addEventListener('click', () => {
+            jumlahTiketInput.value++;
+            updateTotal();
+        });
+        jumlahTiketInput.addEventListener('input', updateTotal);
     }
+}
+
+// --- LOGIKA BARU UNTUK COUNTDOWN TIMER ---
+    const countdownElement = document.getElementById('countdown-timer');
+
+    // Hanya jalankan kode ini jika elemen countdown ada di halaman
+    if (countdownElement) {
+        const expirationTimestamp = parseInt(countdownElement.dataset.expiration) * 1000; // Ubah ke milidetik
+
+        // Fungsi yang akan dijalankan setiap detik
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = expirationTimestamp - now;
+
+            // Kalkulasi waktu
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Tampilkan hasilnya
+            countdownElement.innerHTML = 
+                (hours < 10 ? "0" : "") + hours + " : " + 
+                (minutes < 10 ? "0" : "") + minutes + " : " + 
+                (seconds < 10 ? "0" : "") + seconds;
+
+            // Jika waktu habis
+            if (distance < 0) {
+                clearInterval(countdownInterval); // Hentikan countdown
+                countdownElement.innerHTML = "WAKTU HABIS";
+                countdownElement.style.color = "#333"; // Ubah warna agar tidak terlalu mencolok
+            }
+        }, 1000); // Update setiap 1 detik
+    }
+
+ // --- LOGIKA UNTUK SISTEM TAB DI HALAMAN UTAMA ---
+    // const tabs = document.querySelectorAll('.nav-tab');
+    // const sections = document.querySelectorAll('.content-section');
+
+    // if (tabs.length > 0 && sections.length > 0) {
+    //     tabs.forEach(tab => {
+    //         tab.addEventListener('click', function (event) {
+    //             const targetId = this.dataset.target;
+
+    //             tabs.forEach(t => t.classList.remove('active'));
+    //             this.classList.add('active');
+
+    //             sections.forEach(section => {
+    //                 section.classList.remove('active');
+    //                 if (section.id === targetId) {
+    //                     section.classList.add('active');
+    //                 }
+    //             });
+    //         });
+    //     });
+    // }
 
 });
 

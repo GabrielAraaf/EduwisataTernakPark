@@ -3,8 +3,8 @@
         <div class="footer-grid">
             <!-- Kolom 1: Tentang Ternakpark -->
             <div class="footer-col">
-                <a href="{{ route('home') }}" class="footer-logo"><img src="{{ asset('images/logotpwnslm.jpeg') }}" alt="Logo Ternak Park Wonosalam"></a>
-                <p class="footer-about">Ternak Park Wonosalam adalah destinasi eduwisata keluarga yang memadukan pendidikan, rekreasi, dan keindahan alam khas Wonosalam.</p>
+                <a href="{{ route('home') }}" class="footer-logo"><img src="{{ asset('images/lgtpft.png') }}" alt="Logo Ternak Park Wonosalam"></a>
+                <!-- <p class="footer-about">Ternak Park Wonosalam adalah destinasi eduwisata keluarga yang memadukan pendidikan, rekreasi, dan keindahan alam khas Wonosalam.</p> -->
             </div>
 
             <!-- Kolom 2: Link Cepat -->

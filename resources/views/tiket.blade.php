@@ -37,7 +37,7 @@
             <div class="pricing-features">
                 <p>Termasuk:</p>
                 <ul>
-                    @foreach ($tiket['fasilitas'] as $fasilitas)
+                    @foreach (json_decode($tiket->fasilitas) as $fasilitas)
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
                             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
@@ -48,7 +48,7 @@
                 </ul>
             </div>
             <div class="pricing-cta">
-                <a href="{{ route('payment.show', ['slug' => $tiket['slug']]) }}" class="card-cta">Pesan Sekarang</a>
+                <a href="{{ route('payment.show', ['slug' => $tiket['slug']]) }}" class="cta-button">Pesan Sekarang</button></a>
             </div>
         </div>
         @endforeach

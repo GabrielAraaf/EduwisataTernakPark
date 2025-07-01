@@ -26,3 +26,9 @@ Route::get('/wahana/{slug}', [WahanaController::class, 'show'])->name('wahana.de
 
 // Rute untuk halaman pembayaran (BARU)
 Route::get('/pesan/{slug}', [PaymentController::class, 'show'])->name('payment.show');
+
+// Rute untuk MEMPROSES data dari form (BARU)
+Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('payment.process');
+
+// Rute untuk menampilkan halaman INSTRUKSI pembayaran (BARU)
+Route::get('/instruction/{invoice}', [PaymentController::class, 'instruction'])->name('payment.instruction');

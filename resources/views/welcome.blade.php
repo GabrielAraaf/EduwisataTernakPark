@@ -17,6 +17,7 @@
 </section>
 
 <!-- ======================= AKTIVITAS SECTION ======================= -->
+<!-- <div class="main-content-tabs container"> -->
 <section id="aktivitas" class="container">
     <div class="section-header">
         <br>
@@ -35,7 +36,7 @@
                     <div class="card-image"><img src="{{ $aktivitas['gambar'] }}" alt="{{ $aktivitas['nama'] }}"></div>
                     <div class="card-content">
                         <h3>{{ $aktivitas['nama'] }}</h3>
-                        <p>{{ $aktivitas['deskripsi'] }}</p>
+                        <p>{{ $aktivitas['deskripsi_singkat'] }}</p>
                         <a href="{{ route('aktivitas.detail', ['slug' => $aktivitas['slug']]) }}" class="card-cta">Detail</a>
                     </div>
                 </div>
@@ -66,7 +67,7 @@
                     <div class="card-image"><img src="{{ $wahana['gambar'] }}" alt="{{ $wahana['nama'] }}"></div>
                     <div class="card-content">
                         <h3>{{ $wahana['nama'] }}</h3>
-                        <p>{{ $wahana['deskripsi'] }}</p>
+                        <p>{{ $wahana['deskripsi_singkat'] }}</p>
                         <a href="{{ route('wahana.detail', ['slug' => $wahana['slug']]) }}" class="card-cta">Detail</a>
                     </div>
                 </div>
@@ -97,16 +98,16 @@
                     <!-- Struktur disederhanakan, <a> sekarang adalah itemnya langsung -->
                     <a href="{{ $foto['url'] }}" class="glightbox galeri-item" data-gallery="ternakpark-gallery">
                         <img src="{{ $foto['url'] }}" alt="Galeri Foto Ternak Park"
-                             onerror="this.onerror=null;this.src='https://placehold.co/600x400/CCCCCC/FFFFFF?text=Galeri';">
+                            onerror="this.onerror=null;this.src='https://placehold.co/600x400/CCCCCC/FFFFFF?text=Galeri';">
                     </a>
                 </div>
                 @endforeach
             </div>
-            
+
             <!-- Pagination (Titik-titik di bawah) -->
             <div class="swiper-pagination"></div>
         </div>
-        
+
         <!-- Tombol Navigasi Panah SEKARANG DI LUAR .swiper -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
@@ -116,21 +117,23 @@
 <!-- ======================= LOKASI SECTION ======================= -->
 <section id="lokasi" class="container">
     <div class="section-header">
-        <br>
-        <br>
-        <br>
-        <br>
+        <br><br><br><br>
         <h2>Lokasi</h2>
         <p>Kunjungi kami di Wonosalam, Jombang, Jawa Timur. Temukan kami dengan mudah melalui peta di bawah ini.</p>
     </div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3994.9246028296716!2d112.38225317505147!3d-7.711043592306715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7865f06e9a2d5b%3A0x630eedcad8130587!2sTernakpark%20Wonosalam!5e1!3m2!1sid!2sid!4v1750993098482!5m2!1sid!2sid" 
-        width="1200" 
-        height="500" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+
+    <!-- Gunakan div ini untuk mengatur rasio peta -->
+    <div class="map-container">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3994.9246028296716!2d112.38225317505147!3d-7.711043592306715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7865f06e9a2d5b%3A0x630eedcad8130587!2sTernakpark%20Wonosalam!5e1!3m2!1sid!2sid!4v1750993098482!5m2!1sid!2sid"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
 </section>
+
+        <br>
+<!-- </div> -->
 
 @endsection
