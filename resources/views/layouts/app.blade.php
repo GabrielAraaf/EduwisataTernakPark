@@ -18,8 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 
     <!-- CSS untuk n8n Chat -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/@n8n/chat@0.45.0/dist/style.css" rel="stylesheet" /> -->
-    <link href="{{ asset('css/chat-widget.css') }}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat@0.45.0/dist/style.css" rel="stylesheet" />
 
 
     <!-- Stylesheet utama kita -->
@@ -54,13 +53,9 @@
     <script src="{{ asset('js/main.js') }}"></script>
 
     <script type="module">
-        // import {
-        //     createChat
-        // } from 'https://cdn.jsdelivr.net/npm/@n8n/chat@0.45.0/dist/chat.bundle.es.js';
-
         import {
             createChat
-        } from '/js/chat.bundle.es.js';
+        } from 'https://cdn.jsdelivr.net/npm/@n8n/chat@0.45.0/dist/chat.bundle.es.js';
 
 
         createChat({
@@ -85,6 +80,8 @@
         });
     </script>
 
+    {{-- Tempat untuk script tambahan dari halaman lain (seperti halaman checkout) --}}
+    @stack('scripts')
 
 </body>
 

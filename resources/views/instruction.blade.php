@@ -4,6 +4,9 @@
 
 @section('content')
 
+<script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.clientkey') }}"></script>
+
+
 <section class="container" id="instruction-page">
     <div class="instruction-box">
         <div class="icon-success">
@@ -12,37 +15,66 @@
             </svg>
         </div>
         <h2>Pemesanan Berhasil Dibuat!</h2>
-        <p>Selesaikan pembayaran Anda sebelum batas waktu untuk mendapatkan e-tiket.</p>
+        <p>Selesaikan pembayaran Anda sebelum batas waktu agar e-tiket dapat dikirim.</p>
+             
 
-        <div class="invoice-details">
-            <div class="detail-row"><span>Nomor Invoice</span><strong>{{ $details['invoice'] }}</strong></div>
-            <div class="detail-row"><span>Total Pembayaran</span><strong class="total-price">{{ $details['total_pembayaran_format'] }}</strong></div>
-        </div>
 
-        <div class="payment-instruction">
-            <h4>Instruksi Pembayaran</h4>
-           <p>
-                Batas Waktu Pembayaran: 
-                <strong id="countdown-timer" data-expiration="{{ $details['expiration_timestamp'] }}" style="color: #d32f2f;">
-                    Memuat...
-        </strong>
-    </p>
+        
+        <a href="{{ route('payment.retry', $details['invoice']) }}" class="cta-button-outline">Ganti Metode Pembayaran</a>
 
-            @if($details['payment_method'] == 'qris')
-                <div class="qris-section">
-                    <p>Silakan pindai (scan) QR Code di bawah ini menggunakan aplikasi e-wallet (GoPay, OVO, Dana, dll) atau m-banking Anda.</p>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data={{ $details['invoice'] }}" alt="QR Code Pembayaran">
-                </div>
-            @elseif($details['payment_method'] == 'va')
-                <div class="va-section">
-                    <p>Silakan transfer ke Nomor Virtual Account berikut:</p>
-                    <div class="va-number">8808 1234 5678 9012</div>
-                    <p>Bank: <strong>BCA (Contoh)</strong></p>
-                </div>
-            @endif
-        </div>
-        <a href="{{ route('tiket') }}" class="cta-button-outline">Kembali</a>
+        <a href="{{ route('tiket') }}" class="cta-button-outline">Kembali ke Halaman Tiket</a>
     </div>
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        window.snap.pay("{{ $details['snap_token'] }}", {
+            onSuccess: function(result) {
+                console.log('Payment Success:', result);
+                alert('Pembayaran berhasil!');
+                // Di sini bisa diarahkan ke halaman sukses
+            },
+            onPending: function(result) {
+                console.log('Payment Pending:', result);
+                alert('Transaksi sedang diproses.');
+            },
+            onError: function(result) {
+                console.log('Payment Error:', result);
+                alert('Terjadi kesalahan pembayaran.');
+            },
+            onClose: function() {
+                console.log('Popup ditutup oleh user.');
+            }
+        });
+    });
+</script>
+
+
+<script>
+// Countdown Timer
+const countdownEl = document.getElementById('countdown-timer');
+const expiration = parseInt(countdownEl.dataset.expiration) * 1000;
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = expiration - now;
+
+    if (distance <= 0) {
+        countdownEl.innerText = "Waktu Habis";
+        countdownEl.style.color = 'gray';
+        clearInterval(timer);
+        return;
+    }
+
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.innerText = `${minutes} menit ${seconds} detik`;
+}
+
+updateCountdown();
+const timer = setInterval(updateCountdown, 1000);
+</script>
+
 
 @endsection

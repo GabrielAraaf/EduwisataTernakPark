@@ -13,25 +13,25 @@
         <p>Pilih paket terbaik untuk petualangan tak terlupakan Anda bersama keluarga di Ternak Park Wonosalam.</p>
     </div>
 
-    <div class="pricing-grid" >
+    <div class="pricing-grid">
         {{-- Loop data tiket dari Controller --}}
         @foreach ($daftar_tiket as $tiket)
         <div class="pricing-card {{ $tiket['is_rekomendasi'] ? 'rekomendasi' : '' }}">
             @if ($tiket['is_rekomendasi'])
-                <div class="rekomendasi-badge">Paling Populer</div>
+            <div class="rekomendasi-badge">Paling Populer</div>
             @endif
             <div class="pricing-header text-center mb-8">
                 <h3>{{ $tiket['nama'] }}</h3>
                 <p>{{ $tiket['tipe'] }}</p>
             </div>
-            <div class="pricing-price" >
-                <div class="price-item ">
+            <div class="pricing-price">
+                <div class="price-item">
                     <span>Weekday</span>
-                    <h4>{{ $tiket['harga_weekday']}}</h4>
+                    <h4>Rp {{ number_format($tiket['harga_weekday'], 0, ',', '.') }}</h4>
                 </div>
                 <div class="price-item">
                     <span>Weekend</span>
-                    <h4>{{ $tiket['harga_weekend']}}</h4>
+                    <h4>Rp {{ number_format($tiket['harga_weekend'], 0, ',', '.') }}</h4>
                 </div>
             </div>
             <div class="pricing-features">
@@ -40,7 +40,7 @@
                     @foreach (json_decode($tiket->fasilitas) as $fasilitas)
                     <li>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                         </svg>
                         {{ $fasilitas }}
                     </li>
