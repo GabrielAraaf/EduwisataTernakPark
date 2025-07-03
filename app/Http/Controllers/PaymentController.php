@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\InvoiceMail;
+use Midtrans\Snap;
+use Midtrans\Config;
+use Midtrans\Notification;
 
 class PaymentController extends Controller
 {
@@ -175,6 +180,15 @@ class PaymentController extends Controller
                 'order_id'     => $transaction->invoice,
                 'gross_amount' => $transaction->total_pembayaran,
             ],
+            'item_details' => [
+                 [
+                'id'       => $transaction->ticket_slug,
+                'price'    => $transaction->total_pembayaran / $transaction->jumlah_tiket,
+                'quantity' => $transaction->jumlah_tiket,
+                'name'     => 'Tiket ' . ucfirst(str_replace('-', ' ', $transaction->ticket_slug)) . 
+                              ' - Tgl Kunjungan: ' . date('d/m/Y', strtotime($transaction->tanggal_kunjungan)),
+            ]
+            ],
             'customer_details' => [
                 'first_name' => $transaction->nama_lengkap,
                 'email'      => $transaction->email,
@@ -184,4 +198,5 @@ class PaymentController extends Controller
 
         return \Midtrans\Snap::getSnapToken($params);
     }
+
 }
