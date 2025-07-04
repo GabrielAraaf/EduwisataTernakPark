@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\InvoiceMail;
+use App\Mail\TiketEmail;
 use Midtrans\Snap;
 use Midtrans\Config;
 use Midtrans\Notification;
@@ -127,6 +128,37 @@ class PaymentController extends Controller
             ->with('message', 'Silakan pilih metode pembayaran ulang.');
     }
 
+    public function handleNotification(Request $request)
+    {
+        $this->configureMidtrans();
+
+        $notification = new \Midtrans\Notification();
+
+        $transactionStatus = $notification->transaction_status;
+        $orderId = $notification->order_id;
+
+        $transaction = Transaction::where('invoice', $orderId)->first();
+
+        if (!$transaction) {
+            return response()->json(['message' => 'Transaction not found.'], 404);
+        }
+
+        if (in_array($transactionStatus, ['capture', 'settlement'])) {
+            if ($transaction->status !== 'paid') {
+                $transaction->update(['status' => 'paid']);
+                Mail::to($transaction->email)->send(new TiketEmail($transaction));
+            }
+        } elseif ($transactionStatus === 'pending') {
+            $transaction->update(['status' => 'pending']);
+        } elseif (in_array($transactionStatus, ['deny', 'expire', 'cancel'])) {
+            $transaction->update(['status' => 'failed']);
+        }
+
+        return response()->json(['message' => 'Notification processed.'], 200);
+    }
+
+
+
     // ---------------- FUNCTION TAMBAHAN UNTUK HINDARI DUPLIKASI ---------------- //
 
     private function validateTransaction(Request $request)
@@ -181,13 +213,13 @@ class PaymentController extends Controller
                 'gross_amount' => $transaction->total_pembayaran,
             ],
             'item_details' => [
-                 [
-                'id'       => $transaction->ticket_slug,
-                'price'    => $transaction->total_pembayaran / $transaction->jumlah_tiket,
-                'quantity' => $transaction->jumlah_tiket,
-                'name'     => 'Tiket ' . ucfirst(str_replace('-', ' ', $transaction->ticket_slug)) . 
-                              ' - Tgl Kunjungan: ' . date('d/m/Y', strtotime($transaction->tanggal_kunjungan)),
-            ]
+                [
+                    'id'       => $transaction->ticket_slug,
+                    'price'    => $transaction->total_pembayaran / $transaction->jumlah_tiket,
+                    'quantity' => $transaction->jumlah_tiket,
+                    'name'     => 'Tiket ' . ucfirst(str_replace('-', ' ', $transaction->ticket_slug)) .
+                        ' - Tgl Kunjungan: ' . date('d/m/Y', strtotime($transaction->tanggal_kunjungan)),
+                ]
             ],
             'customer_details' => [
                 'first_name' => $transaction->nama_lengkap,
@@ -198,5 +230,4 @@ class PaymentController extends Controller
 
         return \Midtrans\Snap::getSnapToken($params);
     }
-
 }
